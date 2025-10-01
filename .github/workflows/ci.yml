@@ -31,3 +31,22 @@ jobs:
         env:
           MY_SECRET: ${{ secrets.MY_SECRET }}
         run: pytest -v
+  
+  deploy:
+    name: Desplegar a Produccion
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Deploy notificacion
+      run: |
+        echo "🚀 Desplegando aplicación a producción"
+        echo "Commit: ${{ github.sha }}"
+        echo "Autor: ${{ github.actor }}"
+    
+    # Aquí agregarías los pasos reales de deployment
+    # Por ejemplo: deployment a Heroku, AWS, Azure, etc.
