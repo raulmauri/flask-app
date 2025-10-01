@@ -17,4 +17,5 @@ def test_home(client):
 def test_secret(client):
     res = client.get("/secret")
     assert res.status_code == 200
+    print(res.get_json())
     assert res.get_json() == {"secret": os.getenv("MY_SECRET", "No se encontró el secret")}
